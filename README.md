@@ -6,6 +6,15 @@
 
 Port Depot 把文件整理和创意构思放在同一张无限画布上。你可以用文件节点汇集素材，用文件夹画板组织项目层级，再通过批注和关系连线展示想法、过程与关联。
 
+#### 核心卖点
+
+- **从“找文件”变成“看关系”**：文件不再只是列表里的条目，而是可以摆放、分组、连线的画布节点；项目脉络一眼可见。
+- **素材与思路在同一处**：把图片、视频、音频、文本等素材和说明、批注放在一起，减少在文件夹与笔记之间来回切换。
+- **采集后还能继续组织**：通过采集港收集素材，再将其放入画布，形成从灵感收集到项目编排的连续工作流。
+- **项目可带走，也便于 Agent 处理**：导出保留文件夹层级、画板 JSON 和素材；随附 Skill 为 AI Agent 提供按规范创建、修改项目的工作方式。
+
+技术实现和架构概览见[《Port Depot 技术报告》](TECHNICAL_OVERVIEW.md)。
+
 #### 你可以用它
 
 - 在无限画布上整理图片、视频、音频、文本和其他项目文件。
@@ -46,6 +55,15 @@ Port Depot 把文件整理和创意构思放在同一张无限画布上。你可
 **Public test release · v0.5 · macOS 13+ · Apple silicon**
 
 Port Depot brings file organization and creative thinking onto one infinite canvas. Gather assets as file nodes, arrange project hierarchy with folder canvases, and communicate ideas and relationships through annotations and labeled connections.
+
+#### Why Port Depot
+
+- **See relationships, not just filenames**: place, group, and connect files as canvas nodes so the shape of a project is visible at a glance.
+- **Keep assets and thinking together**: combine images, video, audio, text, notes, and annotations in one workspace instead of switching between folders and notes.
+- **A continuous capture-to-work flow**: collect material in the Collection Harbor, then bring it onto the canvas to develop an idea into an organized project.
+- **Portable and agent-ready projects**: exports preserve folder hierarchy, canvas JSON, and assets; the included Skill gives AI agents a documented way to create and edit projects.
+
+See [Technical Overview](TECHNICAL_OVERVIEW.md) for a plain-language description of the product architecture.
 
 #### What you can do
 
