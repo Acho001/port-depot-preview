@@ -14,8 +14,6 @@ Port Depot 是在传统的文件资源整理库的基础上增加创意构思与
 - **采集后还能继续组织**：通过采集港收集素材，再将其放入画布，形成从灵感收集到项目编排的连续工作流。
 - **项目可带走，也便于 Agent 处理**：导出保留文件夹层级、画板 JSON 和素材；随附 Skill 为 AI Agent 提供按规范创建、修改项目的工作方式。
 
-技术实现和架构概览见[《Port Depot 技术报告》](TECHNICAL_OVERVIEW.md)。
-
 #### 你可以用它
 
 - 实时快速的创意采集-支持截图直接保存进待分配区的“采集港”随时随地保存创意。
@@ -64,8 +62,6 @@ Port Depot brings file organization and creative thinking onto one infinite canv
 - **Keep assets and thinking together**: combine images, video, audio, text, notes, and annotations in one workspace instead of switching between folders and notes.
 - **A continuous capture-to-work flow**: collect material in the Collection Harbor, then bring it onto the canvas to develop an idea into an organized project.
 - **Portable and agent-ready projects**: exports preserve folder hierarchy, canvas JSON, and assets; the included Skill gives AI agents a documented way to create and edit projects.
-
-See [Technical Overview](TECHNICAL_OVERVIEW.md) for a plain-language description of the product architecture.
 
 #### What you can do
 
