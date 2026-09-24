@@ -18,7 +18,7 @@ Port Depot 把文件整理和创意构思放在同一张无限画布上。你可
 
 前往 [GitHub Releases](https://github.com/Acho001/port-depot-preview/releases) 下载：
 
-- `Port-Depot-v0.5-macOS-arm64.dmg` — macOS 安装镜像。
+- `Port-Depot-0.5.dmg` — macOS 安装镜像。
 - `PortDepot-Canvas-Agent-Skill-v0.5.zip` — 可安装的画布自动化 Skill。
 
 #### 安装
@@ -59,7 +59,7 @@ Port Depot brings file organization and creative thinking onto one infinite canv
 
 Visit [GitHub Releases](https://github.com/Acho001/port-depot-preview/releases) for:
 
-- `Port-Depot-v0.5-macOS-arm64.dmg` — the macOS installer image.
+- `Port-Depot-0.5.dmg` — the macOS installer image.
 - `PortDepot-Canvas-Agent-Skill-v0.5.zip` — the installable canvas automation skill.
 
 #### Install
