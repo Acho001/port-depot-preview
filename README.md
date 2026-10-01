@@ -65,6 +65,16 @@ Port Depot 采用 [PolyForm Noncommercial License 1.0.0](LICENSE)：**非商业�
 
 PolyForm Noncommercial 是限制商业用途的源码可见许可证，不属于 OSI 定义的开源许可证。
 
+##### 可信时间戳存证信息
+
+| 项目 | 信息 |
+| --- | --- |
+| 证书编号 | `TSA-01-20261001184483245` |
+| 时间戳认证码 | `F940563D6514D6762259347A97451217904A33B0D3D1F9F401D106DAB97BA637` |
+| 时间戳签发时间 | 2026-10-01 17:18:39 (UTC+8) |
+
+以上登记信息由项目维护者提供；具体认证文件及范围以认证证书和对应原始文件为准。本记录作为软件材料的存证说明，使用授权仍按上述许可证执行。
+
 ---
 
 ### Infinite-canvas file management and creative workspace
@@ -129,3 +139,13 @@ This license covers project-owned files in this repository, the [Port Depot Canv
 License change date: **2026-10-01**. This change does not revoke previously granted licenses. Skill files explicitly released under MIT in historical Release ZIPs and installers remain under their bundled MIT license.
 
 PolyForm Noncommercial is a source-available license restricting commercial use, rather than an open-source license under the OSI definition.
+
+##### Trusted timestamp record
+
+| Field | Value |
+| --- | --- |
+| Certificate number | `TSA-01-20261001184483245` |
+| Timestamp authentication code | `F940563D6514D6762259347A97451217904A33B0D3D1F9F401D106DAB97BA637` |
+| Timestamp issued at | 2026-10-01 17:18:39 (UTC+8) |
+
+These registration details were supplied by the project maintainer. The certified files and scope are determined by the certificate and its corresponding original files. This record documents the timestamp evidence for the software materials; usage rights remain governed by the license above.
