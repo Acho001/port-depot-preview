@@ -1,0 +1,92 @@
+name: Windows installer build and native validation
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Draft release containing windows-build-input.zip
+        required: true
+        default: v0.5.1-windows
+permissions:
+  contents: write
+jobs:
+  windows:
+    runs-on: windows-2022
+    timeout-minutes: 35
+    env:
+      GH_TOKEN: ${{ github.token }}
+      RELEASE_TAG: ${{ inputs.tag }}
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          architecture: x64
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Download binary build input from draft release
+        shell: pwsh
+        run: |
+          gh release download $env:RELEASE_TAG --repo $env:GITHUB_REPOSITORY --pattern windows-build-input.zip --dir input
+          Expand-Archive input/windows-build-input.zip build
+          Invoke-WebRequest https://github.com/electron/electron/releases/download/v44.5.1/electron-v44.5.1-win32-x64.zip -OutFile input/electron.zip
+          Expand-Archive input/electron.zip build/payload -Force
+          Move-Item build/payload/electron.exe build/payload/PortDepot.exe
+          Remove-Item build/payload/resources/default_app.asar -ErrorAction SilentlyContinue
+      - name: Provision isolated Windows Python runtime and media tools
+        shell: pwsh
+        run: |
+          $backend = Join-Path $pwd build/payload/resources/backend
+          $runtime = Split-Path (Get-Command python).Source
+          Get-ChildItem $runtime -File | Where-Object { $_.Extension -in '.exe','.dll' -or $_.Name -eq 'LICENSE.txt' } | Copy-Item -Destination $backend
+          Copy-Item "$runtime/DLLs" $backend -Recurse
+          robocopy "$runtime/Lib" "$backend/Lib" /E /XD site-packages test tests idlelib tkinter ensurepip /NFL /NDL /NJH /NJS /NP
+          if ($LASTEXITCODE -gt 7) { throw 'Python runtime copy failed' }
+          python -m pip install --only-binary=:all: --target "$backend/Lib/site-packages" -r build/requirements-windows.txt
+          if ($LASTEXITCODE -ne 0) { throw 'Dependency provisioning failed' }
+          ".`nLib`nDLLs`nLib/site-packages`nimport site`n" | Set-Content "$backend/python312._pth" -Encoding ascii
+          Invoke-WebRequest https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-lgpl-shared.zip -OutFile input/ffmpeg.zip
+          Expand-Archive input/ffmpeg.zip input/ffmpeg
+          $ffmpeg = (Get-ChildItem input/ffmpeg -Directory | Select-Object -First 1).FullName
+          New-Item "$backend/tools" -ItemType Directory -Force | Out-Null
+          Copy-Item "$ffmpeg/bin/*" "$backend/tools"
+          Copy-Item "$ffmpeg/LICENSE.txt" "$backend/tools/FFmpeg-LICENSE.txt"
+          Copy-Item "$ffmpeg/doc" "$backend/tools/ffmpeg-doc" -Recurse
+          Get-FileHash input/ffmpeg.zip -Algorithm SHA256 | Format-List | Out-File "$backend/tools/FFmpeg-BUILD.txt"
+          'Origin: https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-lgpl-shared.zip' | Add-Content "$backend/tools/FFmpeg-BUILD.txt"
+          & "$backend/python.exe" -c "import fastapi,uvicorn,httpx,requests,PIL,websockets,python_multipart; print('Windows imports passed')"
+          if ($LASTEXITCODE -ne 0) { throw 'Bundled runtime import failed' }
+          & "$backend/tools/ffmpeg.exe" -version
+          if ($LASTEXITCODE -ne 0) { throw 'Bundled media runtime failed' }
+      - name: Build standard offline NSIS installer on Windows
+        shell: pwsh
+        run: |
+          Push-Location build/packaging
+          npm install --ignore-scripts --no-audit --no-fund
+          if ($LASTEXITCODE -ne 0) { throw 'Build tools provisioning failed' }
+          npm install --no-save rcedit@5.0.2 playwright@1.63.0 --ignore-scripts --no-audit --no-fund
+          & node_modules/rcedit/bin/rcedit-x64.exe ../payload/PortDepot.exe --set-icon ../payload/resources/backend/PortDepot.ico --set-file-version 1.1.1 --set-product-version 1.1.1 --set-version-string ProductName 'Port Depot' --set-version-string FileDescription 'Port Depot' --set-version-string CompanyName 'Port Depot'
+          if ($LASTEXITCODE -ne 0) { throw 'Executable metadata failed' }
+          npx electron-builder --prepackaged ../payload --win nsis --x64 --publish never --config electron-builder.yml
+          if ($LASTEXITCODE -ne 0) { throw 'NSIS installer build failed' }
+          Pop-Location
+      - name: Install, exercise, upgrade and uninstall the real Windows package
+        shell: pwsh
+        run: |
+          $env:NODE_PATH = Join-Path $pwd build/packaging/node_modules
+          node scripts/windows-smoke.cjs
+          if ($LASTEXITCODE -ne 0) { throw 'Windows installer validation failed' }
+      - name: Keep validation diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-native-validation
+          path: |
+            build/output/
+            validation/
+          retention-days: 14
+      - name: Attach validated installer and report to draft release
+        shell: pwsh
+        run: |
+          gh release upload $env:RELEASE_TAG build/output/*Setup.exe validation/Windows-validation.json --repo $env:GITHUB_REPOSITORY --clobber
