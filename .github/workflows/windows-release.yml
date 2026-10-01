@@ -38,8 +38,11 @@ jobs:
         shell: pwsh
         run: |
           $backend = Join-Path $pwd build/payload/resources/backend
-          $runtime = Split-Path (Get-Command python).Source
-          Get-ChildItem $runtime -File | Where-Object { $_.Extension -in '.exe','.dll' -or $_.Name -eq 'LICENSE.txt' } | Copy-Item -Destination $backend
+          Invoke-WebRequest 'https://github.com/astral-sh/python-build-standalone/releases/download/20260929/cpython-3.12.14%2B20260929-x86_64-pc-windows-msvc-install_only.tar.gz' -OutFile input/python-runtime.tar.gz
+          New-Item input/python-runtime -ItemType Directory -Force | Out-Null
+          tar -xzf input/python-runtime.tar.gz -C input/python-runtime
+          $runtime = Join-Path $pwd input/python-runtime/python
+          Get-ChildItem $runtime -File | Where-Object { $_.Extension -in '.exe','.dll' -or $_.Name -like 'LICENSE*' } | Copy-Item -Destination $backend
           Copy-Item "$runtime/DLLs" $backend -Recurse
           robocopy "$runtime/Lib" "$backend/Lib" /E /XD site-packages test tests idlelib tkinter ensurepip /NFL /NDL /NJH /NJS /NP
           if ($LASTEXITCODE -gt 7) { throw 'Python runtime copy failed' }
