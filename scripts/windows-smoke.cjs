@@ -93,7 +93,7 @@ async function uninstall() {
   assert.equal(guide.length, 10);
   let assetUrls = new Set();
   for (const c of guide) {
-    const canvas = await api(`/api/canvases/${c.id}`);
+    const canvas = (await api(`/api/canvases/${c.id}`)).canvas;
     for (const n of canvas.nodes || []) if (n.url?.startsWith('/assets/')) assetUrls.add(n.url);
   }
   for (const url of assetUrls) { const response = await fetch(endpoint.url + url); assert(response.ok, `Guide asset missing: ${url}`); }
@@ -130,7 +130,7 @@ async function uninstall() {
   assert.equal(copiedPaths.status, 0); assert(JSON.parse(copiedPaths.stdout).includes(localFile));
   pass('Windows CF_HDROP file clipboard contains the real Chinese file path');
   await page.keyboard.press('Control+V');
-  await eventually(async () => (await api(`/api/canvases/${canvasId}`)).nodes?.some(n => n.type === 'file'), 15000);
+  await eventually(async () => (await api(`/api/canvases/${canvasId}`)).canvas.nodes?.some(n => n.type === 'file'), 15000);
   pass('Explorer-compatible Ctrl+V imports clipboard files as canvas nodes');
   await page.screenshot({ path: path.join(reportDir, 'canvas-zh-path.png') });
   const exported = await fetch(`${endpoint.url}/api/canvases/${guideRoot.id}/export-package`); assert(exported.ok);
@@ -179,7 +179,7 @@ async function uninstall() {
   await install(); await launch();
   assert((await api('/api/projects')).projects.some(p => p.id === 'legacy'));
   assert(!(await api('/api/projects')).projects.some(p => p.id === '2148e7c010de43deb14a29dae984700c'));
-  assert.equal((await api('/api/canvases/legacy-canvas')).id, 'legacy-canvas');
+  assert.equal((await api('/api/canvases/legacy-canvas')).canvas.id, 'legacy-canvas');
   assert.equal(await (await fetch(endpoint.url + '/assets/library/' + encodeURI('旧版项目/中文画板/保留.txt'))).text(), 'legacy media');
   await close(); await uninstall();
   pass('Old storage/library layout migrates without symlink privileges, replacement or tutorial injection');
