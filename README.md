@@ -4,6 +4,8 @@
 
 **公开测试版 · v0.5.1 · Windows 10/11 x64 · macOS 13+ Apple 芯片**
 
+**非商业用途免费使用；商业用途需另行取得授权。** [查看许可证](LICENSE)
+
 安装包：Windows `Port-Depot-v0.5.1-Windows-x64-Setup.exe`、macOS `Port-Depot-v0.5.1-macOS-arm64.dmg`；Skill：`PortDepot-Canvas-Agent-Skill-v0.5.1.zip`。本次仅附入门指南，不包含个人项目和上传素材。[更新记录](RELEASE_NOTES.md)
 
 Port Depot 是在传统的文件资源整理库的基础上增加创意构思与关联放在同一张无限画布上。你可以用文件节点汇集素材，用文件夹画板组织项目层级，再通过批注和关系连线展示想法、过程与关联。
@@ -53,15 +55,23 @@ Port Depot 是在传统的文件资源整理库的基础上增加创意构思与
 
 最新测试发布为 v0.5.1。Windows 内部构建 2026.10.01.1、安装器版本 1.1.1；macOS 内部构建 2026.09.30.1、bundle 版本 1.1.0。
 
-#### 开源范围与许可
+#### 公开发行范围与许可
 
-本仓库公开提供 Windows 和 macOS 测试安装包和 Port Depot Canvas Agent Skill。应用安装包是二进制测试发行物，不包含 Port Depot 应用源代码；Skill 的 MIT 许可仅适用于 `portdepot-canvas-agent/` 目录中的 Skill 文件。
+Port Depot 采用 [PolyForm Noncommercial License 1.0.0](LICENSE)：**非商业用途免费使用；不在许可证允许范围内的商业用途，须事先取得权利人的单独授权。** 商业授权事宜请通过 [GitHub Issues](https://github.com/Acho001/port-depot-preview/issues) 联系维护者。具体允许用途、复制、修改、分发及免责声明以英文许可证原文为准。
+
+本许可适用于本仓库的项目自有文件、当前主分支的 [Port Depot Canvas Agent Skill](portdepot-canvas-agent/LICENSE)，以及自本次许可声明起提供的 Port Depot 应用二进制发行物。本仓库提供 Windows 和 macOS 测试安装包，尚未公开应用源代码。第三方组件仍按各自的许可证授权；用户自己的项目、素材和导出内容不因使用本应用而适用本许可证。
+
+许可变更日期：**2026-10-01**。本次变更不撤销此前已授予的许可；历史 Release ZIP 和安装包内已明确按 MIT 发布的 Skill 文件继续适用其随附的 MIT 许可证。
+
+PolyForm Noncommercial 是限制商业用途的源码可见许可证，不属于 OSI 定义的开源许可证。
 
 ---
 
 ### Infinite-canvas file management and creative workspace
 
 **Public test release · v0.5.1 · Windows 10/11 x64 · macOS 13+ Apple silicon**
+
+**Free for noncommercial use; commercial use requires separate authorization.** [View license](LICENSE)
 
 Installer assets: `Port-Depot-v0.5.1-Windows-x64-Setup.exe`, `Port-Depot-v0.5.1-macOS-arm64.dmg` and `PortDepot-Canvas-Agent-Skill-v0.5.1.zip`. Only the onboarding guide is bundled; personal projects and uploads are excluded. [Changelog](RELEASE_NOTES.md)
 
@@ -110,6 +120,12 @@ The current public test release is **v0.5.1**. Port Depot is still evolving; upc
 
 Latest test release: v0.5.1. Windows build: 2026.10.01.1, installer version 1.1.1. macOS build: 2026.09.30.1, bundle version 1.1.0.
 
-#### Open-source scope and license
+#### Public distribution scope and license
 
-This public repository provides Windows and macOS test installers and the Port Depot Canvas Agent Skill. The application installer is a binary test distribution and does not include Port Depot application source code. The MIT license applies only to the Skill files in `portdepot-canvas-agent/`.
+Port Depot uses the [PolyForm Noncommercial License 1.0.0](LICENSE): **noncommercial use is free; commercial purposes outside the license's permitted uses require prior, separate authorization from the rights holder.** Contact the maintainer through [GitHub Issues](https://github.com/Acho001/port-depot-preview/issues) about commercial licensing. The English license text governs permitted purposes, copying, modification, distribution, and disclaimers.
+
+This license covers project-owned files in this repository, the [Port Depot Canvas Agent Skill](portdepot-canvas-agent/LICENSE) on the current main branch, and Port Depot application binaries offered from this licensing notice onward. This repository provides Windows and macOS test installers; application source code is not currently published. Third-party components retain their own licenses. Users' own projects, assets, and exports do not become subject to this license merely through use of the application.
+
+License change date: **2026-10-01**. This change does not revoke previously granted licenses. Skill files explicitly released under MIT in historical Release ZIPs and installers remain under their bundled MIT license.
+
+PolyForm Noncommercial is a source-available license restricting commercial use, rather than an open-source license under the OSI definition.
