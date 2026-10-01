@@ -1,3 +1,34 @@
+# Windows v0.5.1 · 2026.10.01.1 · 2026-10-01
+
+## 中文
+
+- 将最新画布交互、语言与主题设置、回收站体验带到 Windows 10/11 x64。
+- 提供完整离线安装引导、桌面与开始菜单快捷方式、标准卸载；无需外部压缩软件、系统 Python 或浏览器。
+- 修复旧封装依赖外部解压入口、使用旧前后端和向安装目录写数据的问题。
+- 适配中文及带空格的安装/文件路径、Windows 文件剪贴板、Ctrl+C/Ctrl+V、资源管理器、原生导入和导出。
+- 支持截图采集、裁剪及本地视频缩略图；全局截图快捷键可修改。
+- 关闭软件时停止自己的后台；重复启动聚焦同一窗口。服务端口占用时自动避让，语言、主题与快捷键仍保留。
+- 兼容旧 storage/library 数据目录，无需管理员权限或符号链接。覆盖升级、标准卸载保留用户项目和素材。
+- Windows 版不提供宠物窗口、设置入口或资源。
+- 只附 10 张入门指南画板、空采集库和最新版配套 Skill；没有个人项目、上传素材、账号配置或应用开发源码。
+
+此发行物的 Windows 原生验证结果见 Release 附件 `Windows-validation.json`。验证运行在 Windows Server 2022 x64；不代表已测试每一台 Windows 10/11 用户电脑。安装器版本为 1.1.1，未使用 Authenticode 证书签名。请核对 SHA-256 和下载来源。
+
+## English
+
+- Brings the latest canvas interactions, language/theme preferences and trash experience to Windows 10/11 x64.
+- Complete offline installer, desktop/Start menu shortcuts and standard uninstallation. No system Python, external browser or archive utility is needed.
+- Fixes stale frontend/backend packaging, external extraction dependencies and writes to the installation directory.
+- Supports Chinese paths, paths containing spaces, native file clipboard operations, Ctrl+C/Ctrl+V, Explorer and native import/export dialogs.
+- Includes capture/cropping and local video thumbnails, configurable global capture shortcuts, single-instance activation and owned-backend shutdown.
+- Handles occupied ports while retaining desktop preferences. Migrates older library layouts without symbolic links or administrator rights.
+- Upgrades and standard uninstallation preserve user projects and media. Pets are excluded from the Windows package.
+- Bundles ten onboarding canvases, an empty inbox and the latest companion Skill. Personal projects, uploads, credentials and application development sources are excluded.
+
+Native validation results are attached as `Windows-validation.json`. Tests run on Windows Server 2022 x64; individual Windows 10/11 machines still need user acceptance. Installer version: 1.1.1. This test package is not Authenticode-signed; verify its source and SHA-256.
+
+---
+
 # v0.5.1 · 2026.09.30.1 · 公开测试更新 / Public test update
 
 ## 中文

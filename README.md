@@ -2,9 +2,9 @@
 
 ### 完全本地化的无限画布文件管理与创意采集工作台
 
-**公开测试版 · v0.5.1 · macOS 13+ · Apple 芯片**
+**公开测试版 · v0.5.1 · Windows 10/11 x64 · macOS 13+ Apple 芯片**
 
-最新安装包：`Port-Depot-v0.5.1-macOS-arm64.dmg`；Skill：`PortDepot-Canvas-Agent-Skill-v0.5.1.zip`。本次仅附入门指南，不包含个人项目和上传素材。[更新记录](RELEASE_NOTES.md)
+安装包：Windows `Port-Depot-v0.5.1-Windows-x64-Setup.exe`、macOS `Port-Depot-v0.5.1-macOS-arm64.dmg`；Skill：`PortDepot-Canvas-Agent-Skill-v0.5.1.zip`。本次仅附入门指南，不包含个人项目和上传素材。[更新记录](RELEASE_NOTES.md)
 
 Port Depot 是在传统的文件资源整理库的基础上增加创意构思与关联放在同一张无限画布上。你可以用文件节点汇集素材，用文件夹画板组织项目层级，再通过批注和关系连线展示想法、过程与关联。
 结合配套的skill可以借助ai工具进行快速直观的资源整理。
@@ -29,10 +29,17 @@ Port Depot 是在传统的文件资源整理库的基础上增加创意构思与
 
 前往 [GitHub Releases](https://github.com/Acho001/port-depot-preview/releases) 下载：
 
-- `Port-Depot-v0.5.1-macOS-arm64.dmg` — macOS 安装镜像。
+- [Windows x64 安装包](https://github.com/Acho001/port-depot-preview/releases/tag/v0.5.1-windows) — `Port-Depot-v0.5.1-Windows-x64-Setup.exe`。
+- [macOS Apple 芯片安装镜像](https://github.com/Acho001/port-depot-preview/releases/tag/v0.5.1) — `Port-Depot-v0.5.1-macOS-arm64.dmg`。
 - `PortDepot-Canvas-Agent-Skill-v0.5.1.zip` — 可安装的画布自动化 Skill。
 
 #### 安装
+
+**Windows**：双击 Setup.exe，选择语言和安装目录，完成后从桌面或开始菜单打开。无需系统 Python、浏览器、压缩软件或管理员权限。数据保存在 `%LOCALAPPDATA%\Port Depot Data`；升级及标准卸载保留数据。Windows 版暂不提供宠物功能。
+
+这是未使用 Authenticode 证书签名的测试包，首次运行可能有 Windows 安全提示，请核对来源及 SHA-256。详细说明和原生 Windows 验证报告附在 Windows Release。
+
+**macOS**：
 
 1. 下载并双击打开 DMG。
 2. 将 **Port Depot** 拖入 **Applications（应用程序）** 文件夹。
@@ -42,21 +49,21 @@ Port Depot 是在传统的文件资源整理库的基础上增加创意构思与
 
 #### 测试阶段说明
 
-当前发布阶段标记为 **v0.5**。Port Depot 仍在持续优化，后续将继续改进画布交互、文件采集、导入导出、稳定性和整体使用体验。欢迎通过 [GitHub Issues](https://github.com/Acho001/port-depot-preview/issues) 提交问题与建议。
+当前公开测试版为 **v0.5.1**。Port Depot 仍在持续优化，后续将继续改进画布交互、文件采集、导入导出、稳定性和整体使用体验。欢迎通过 [GitHub Issues](https://github.com/Acho001/port-depot-preview/issues) 提交问题与建议。
 
-最新测试发布为 v0.5.1；内部构建 2026.09.30.1，macOS bundle 版本 1.1.0。
+最新测试发布为 v0.5.1。Windows 内部构建 2026.10.01.1、安装器版本 1.1.1；macOS 内部构建 2026.09.30.1、bundle 版本 1.1.0。
 
 #### 开源范围与许可
 
-本仓库公开提供 macOS 测试安装包和 Port Depot Canvas Agent Skill。应用安装包是二进制测试发行物，不包含 Port Depot 应用源代码；Skill 的 MIT 许可仅适用于 `portdepot-canvas-agent/` 目录中的 Skill 文件。
+本仓库公开提供 Windows 和 macOS 测试安装包和 Port Depot Canvas Agent Skill。应用安装包是二进制测试发行物，不包含 Port Depot 应用源代码；Skill 的 MIT 许可仅适用于 `portdepot-canvas-agent/` 目录中的 Skill 文件。
 
 ---
 
 ### Infinite-canvas file management and creative workspace
 
-**Public test release · v0.5.1 · macOS 13+ · Apple silicon**
+**Public test release · v0.5.1 · Windows 10/11 x64 · macOS 13+ Apple silicon**
 
-Latest assets: `Port-Depot-v0.5.1-macOS-arm64.dmg` and `PortDepot-Canvas-Agent-Skill-v0.5.1.zip`. Only the onboarding guide is bundled; personal projects and uploads are excluded. [Changelog](RELEASE_NOTES.md)
+Installer assets: `Port-Depot-v0.5.1-Windows-x64-Setup.exe`, `Port-Depot-v0.5.1-macOS-arm64.dmg` and `PortDepot-Canvas-Agent-Skill-v0.5.1.zip`. Only the onboarding guide is bundled; personal projects and uploads are excluded. [Changelog](RELEASE_NOTES.md)
 
 Port Depot brings file organization and creative thinking onto one infinite canvas. Gather assets as file nodes, arrange project hierarchy with folder canvases, and communicate ideas and relationships through annotations and labeled connections.
 
@@ -79,10 +86,17 @@ Port Depot brings file organization and creative thinking onto one infinite canv
 
 Visit [GitHub Releases](https://github.com/Acho001/port-depot-preview/releases) for:
 
-- `Port-Depot-v0.5.1-macOS-arm64.dmg` — the macOS installer image.
+- [Windows x64 installer](https://github.com/Acho001/port-depot-preview/releases/tag/v0.5.1-windows) — `Port-Depot-v0.5.1-Windows-x64-Setup.exe`.
+- [macOS Apple-silicon installer](https://github.com/Acho001/port-depot-preview/releases/tag/v0.5.1) — `Port-Depot-v0.5.1-macOS-arm64.dmg`.
 - `PortDepot-Canvas-Agent-Skill-v0.5.1.zip` — the installable canvas automation skill.
 
 #### Install
+
+**Windows**: run Setup.exe and choose the language and installation folder. Launch from the desktop or Start menu. Python, an external browser, archive tools, and administrator rights are not required. User data lives in `%LOCALAPPDATA%\Port Depot Data` and is retained by upgrades and standard uninstallation. Pets are excluded from this Windows release.
+
+This test installer is not Authenticode-signed. Verify its origin and SHA-256 if Windows displays a security prompt. Installation instructions and the native Windows validation report accompany the Windows Release.
+
+**macOS**:
 
 1. Download and open the DMG.
 2. Drag **Port Depot** to **Applications**.
@@ -92,10 +106,10 @@ This is a test build with an ad-hoc signature. It has not been signed with a Dev
 
 #### Test release
 
-The current public test release is labeled **v0.5**. Port Depot is still evolving; upcoming work will continue to improve canvas interactions, file collection, import and export, stability, and the overall experience. Please report issues and suggestions through [GitHub Issues](https://github.com/Acho001/port-depot-preview/issues).
+The current public test release is **v0.5.1**. Port Depot is still evolving; upcoming work will continue to improve canvas interactions, file collection, import and export, stability, and the overall experience. Please report issues and suggestions through [GitHub Issues](https://github.com/Acho001/port-depot-preview/issues).
 
-Latest test release: v0.5.1. Internal build: 2026.09.30.1; macOS bundle version: 1.1.0.
+Latest test release: v0.5.1. Windows build: 2026.10.01.1, installer version 1.1.1. macOS build: 2026.09.30.1, bundle version 1.1.0.
 
 #### Open-source scope and license
 
-This public repository provides the macOS test installer and the Port Depot Canvas Agent Skill. The application installer is a binary test distribution and does not include Port Depot application source code. The MIT license applies only to the Skill files in `portdepot-canvas-agent/`.
+This public repository provides Windows and macOS test installers and the Port Depot Canvas Agent Skill. The application installer is a binary test distribution and does not include Port Depot application source code. The MIT license applies only to the Skill files in `portdepot-canvas-agent/`.
