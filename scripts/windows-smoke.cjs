@@ -63,7 +63,8 @@ function hashResources(root) {
   walk(root); return result;
 }
 async function uninstall() {
-  const uninstaller = path.join(installDir, 'Uninstall Port Depot.exe'); assert(fs.existsSync(uninstaller));
+  const names = fs.readdirSync(installDir).filter(name => /^Uninstall.*\.exe$/i.test(name)); assert.equal(names.length, 1);
+  const uninstaller = path.join(installDir, names[0]);
   const proc = spawn(uninstaller, ['/S'], { stdio: 'inherit' });
   await new Promise((resolve, reject) => { proc.once('error', reject); proc.once('exit', resolve); });
   await eventually(() => !fs.existsSync(executable), 45000);
@@ -121,6 +122,11 @@ async function uninstall() {
   assert(resolved.uris[0].startsWith('file:///'));
   const localFile = require('node:url').fileURLToPath(resolved.uris[0]); assert(fs.existsSync(localFile));
   pass('Chinese project, canvas, filenames and native file URI resolution');
+  const reservedProject = (await api('/api/projects', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({name:'CON'}) })).project;
+  const reservedCanvas = (await api('/api/canvases', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({title:'NUL', project:reservedProject.id}) })).canvas;
+  assert(reservedCanvas.dir.includes('_CON')); assert(reservedCanvas.dir.includes('_NUL'));
+  pass('Windows reserved device names are mapped to valid directories while retaining display titles');
+
   await page.goto(`${endpoint.url}/static/file-canvas.html?id=${canvasId}&project=${projectId}`);
   await page.waitForFunction(() => window.__pdCanvasId);
   const copy = await page.evaluate(async url => window.webkit.messageHandlers.copyFiles.postMessage({ urls: [url] }), file.item.url);
@@ -145,6 +151,15 @@ async function uninstall() {
   const crop = await api('/api/screenshot/crop', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: shot.id, x: 0, y: 0, w: 120, h: 80 }) });
   assert((await fetch(endpoint.url + crop.url)).ok);
   pass('Native Windows screen capture, cropping and collection media writes');
+  const clip = path.join(reportDir, '中文视频 fixture.webm');
+  const video = spawnSync(path.join(backend, 'tools/ffmpeg.exe'), ['-hide_banner','-loglevel','error','-y','-f','lavfi','-i','color=c=blue:s=96x64:r=10','-t','1','-c:v','libvpx-vp9',clip], {encoding:'utf8'});
+  assert.equal(video.status, 0, video.stderr);
+  const videoForm = new FormData(); videoForm.append('files', new Blob([fs.readFileSync(clip)],{type:'video/webm'}), '中文视频.webm'); videoForm.append('folder',canvasId);
+  const videoUpload = await api('/api/ai/upload', {method:'POST',body:videoForm});
+  const thumbnail = await fetch(endpoint.url + '/api/media-preview?url=' + encodeURIComponent(videoUpload.files[0].url) + '&w=128');
+  assert(thumbnail.ok); assert(thumbnail.headers.get('content-type').startsWith('image/')); assert((await thumbnail.arrayBuffer()).byteLength > 0);
+  pass('Bundled FFmpeg creates a real video thumbnail with no external media tools');
+
   const forbidden = await fetch(endpoint.url + '/api/update-from-github', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' }); assert.equal(forbidden.status, 409);
   const marker = path.join(dataDir, 'user-data-preservation.txt'); fs.writeFileSync(marker, 'Keep through upgrade and uninstall');
   assert.deepEqual(hashResources(path.join(installDir, 'resources')), before);
@@ -159,6 +174,15 @@ async function uninstall() {
   pass('Stable local origin restores language preferences; 125% display scaling works');
   await page.locator('#settingsClose').click();
   await close();
+  const blocked = require('node:net').createServer();
+  await new Promise(resolve => blocked.listen(Number(new URL(firstPort).port), '127.0.0.1', resolve));
+  await launch();
+  assert.notEqual(endpoint.url, firstPort);
+  await page.locator('#openSettingsBtn').click();
+  assert.equal(await page.locator('#languageSelect').inputValue(), 'en');
+  await close();
+  await new Promise(resolve => blocked.close(resolve));
+  pass('Busy service port is avoided and desktop preferences survive the origin change');
   await install();
   assert.equal(fs.readFileSync(marker, 'utf8'), 'Keep through upgrade and uninstall');
   await launch();
