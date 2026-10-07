@@ -5,7 +5,7 @@ on:
       tag:
         description: Draft release containing windows-build-input.zip
         required: true
-        default: v0.5.1-windows
+        default: v0.5.2-windows
 permissions:
   contents: write
 jobs:
@@ -69,7 +69,8 @@ jobs:
           npm install --ignore-scripts --no-audit --no-fund
           if ($LASTEXITCODE -ne 0) { throw 'Build tools provisioning failed' }
           npm install --no-save rcedit@5.0.2 playwright@1.63.0 --ignore-scripts --no-audit --no-fund
-          & node_modules/rcedit/bin/rcedit-x64.exe ../payload/PortDepot.exe --set-icon ../payload/resources/backend/PortDepot.ico --set-file-version 1.1.1 --set-product-version 1.1.1 --set-version-string ProductName 'Port Depot' --set-version-string FileDescription 'Port Depot' --set-version-string CompanyName 'Port Depot'
+          $productVersion = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          & node_modules/rcedit/bin/rcedit-x64.exe ../payload/PortDepot.exe --set-icon ../payload/resources/backend/PortDepot.ico --set-file-version $productVersion --set-product-version $productVersion --set-version-string ProductName 'Port Depot' --set-version-string FileDescription 'Port Depot' --set-version-string CompanyName 'Port Depot'
           if ($LASTEXITCODE -ne 0) { throw 'Executable metadata failed' }
           npx electron-builder --prepackaged ../payload --win nsis --x64 --publish never --config electron-builder.yml
           if ($LASTEXITCODE -ne 0) { throw 'NSIS installer build failed' }
