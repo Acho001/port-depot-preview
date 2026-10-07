@@ -204,9 +204,22 @@ async function uninstall() {
   pass('Windows Preferred DropEffect cut moves the original file and consumes its clipboard');
   const externalFile=path.join(reportDir,'资源管理器 原件 中文.txt');fs.writeFileSync(externalFile,'Actual external move');
   const beforeDrop=await page.evaluate(()=>nodes.length);
+  const dropPoint=await page.evaluate(()=>{
+    for (const x of [innerWidth-90,90,innerWidth/2]) for (const y of [180,innerHeight-220]) {
+      const el=document.elementFromPoint(x,y);
+      if (el?.closest('#board') && !el.closest('.node,input,textarea,select,[contenteditable],#minimap,#canvasAssetPanel,#selectionHub')) return {x,y};
+    }
+    throw new Error('No empty canvas drop position');
+  });
   const cdp=await page.context().newCDPSession(page);
-  for (const type of ['dragEnter','dragOver','drop']) await cdp.send('Input.dispatchDragEvent',{type,x:650,y:500,data:{items:[],files:[externalFile],dragOperationsMask:16}});
-  await page.waitForFunction(count=>nodes.length===count+1,beforeDrop);
+  await page.evaluate(()=>{
+    window.__nativeDragDiagnostic={events:[]};
+    for (const type of ['dragenter','dragover','drop']) window.addEventListener(type,e=>window.__nativeDragDiagnostic.events.push({type,types:[...e.dataTransfer.types],files:e.dataTransfer.files.length,effect:e.dataTransfer.dropEffect,target:e.target.tagName}),true);
+    const original=window.fmNativeFileTarget;window.fmNativeFileTarget=async(...args)=>{const target=await original(...args);window.__nativeDragDiagnostic.target=target;return target;};
+  });
+  for (const type of ['dragEnter','dragOver','drop']) await cdp.send('Input.dispatchDragEvent',{type,...dropPoint,data:{items:[],files:[externalFile],dragOperationsMask:16}});
+  try { await page.waitForFunction(count=>nodes.length===count+1,beforeDrop); }
+  catch(error) { fs.writeFileSync(path.join(reportDir,'native-drag-diagnostic.json'),JSON.stringify(await page.evaluate(()=>({...window.__nativeDragDiagnostic,status:document.body.textContent.slice(-800)})),null,2));await page.screenshot({path:path.join(reportDir,'native-drag-failure.png')});throw error; }
   assert(!fs.existsSync(externalFile));const dropped=await page.evaluate(()=>nodes.find(n=>selected.has(n.id)));
   assert.equal(dropped.name,path.basename(externalFile));assert.equal(await (await fetch(endpoint.url+dropped.url)).text(),'Actual external move');
   await page.keyboard.press('Control+Z');
