@@ -2,14 +2,16 @@
 
 ### 完全本地化的无限画布文件管理与创意采集工作台
 
-**公开测试版 · v0.5.1 · Windows 10/11 x64 · macOS 13+ Apple 芯片**
+**公开测试版 · v0.5.2 · Windows 10/11 x64 · macOS 13+ Apple 芯片**
 
 **非商业用途免费使用；商业用途需另行取得授权。** [查看许可证](LICENSE)
 
-安装包：Windows `Port-Depot-v0.5.1-Windows-x64-Setup.exe`、macOS `Port-Depot-v0.5.1-macOS-arm64.dmg`；Skill：`PortDepot-Canvas-Agent-Skill-v0.5.1.zip`。本次仅附入门指南，不包含个人项目和上传素材。[更新记录](RELEASE_NOTES.md)
+安装包：Windows `Port-Depot-v0.5.2-Windows-x64-Setup.exe`、macOS `Port-Depot-macOS-2026.10.07.2-clipboard-hotfix.zip`；Skill：`PortDepot-Canvas-Agent-Skill-v0.5.2.zip`。本次仅附入门指南，不包含个人项目和上传素材。[更新记录](RELEASE_NOTES.md)
 
 Port Depot 是在传统的文件资源整理库的基础上增加创意构思与关联放在同一张无限画布上。你可以用文件节点汇集素材，用文件夹画板组织项目层级，再通过批注和关系连线展示想法、过程与关联。
 结合配套的skill可以借助ai工具进行快速直观的资源整理。
+
+复制粘贴统一使用系统剪贴板：复制节点提供真实文件，复制选中文字提供文字。外部文件拖入画板会实际移动到画板目录；撤销可恢复原位置。macOS 已补齐原生编辑菜单及 ⌘A／⌘C／⌘V，Windows 使用 Ctrl 快捷键。
 
 #### 核心卖点
 
@@ -31,9 +33,9 @@ Port Depot 是在传统的文件资源整理库的基础上增加创意构思与
 
 前往 [GitHub Releases](https://github.com/Acho001/port-depot-preview/releases) 下载：
 
-- [Windows x64 安装包](https://github.com/Acho001/port-depot-preview/releases/tag/v0.5.1-windows) — `Port-Depot-v0.5.1-Windows-x64-Setup.exe`。
-- [macOS Apple 芯片安装镜像](https://github.com/Acho001/port-depot-preview/releases/tag/v0.5.1) — `Port-Depot-v0.5.1-macOS-arm64.dmg`。
-- `PortDepot-Canvas-Agent-Skill-v0.5.1.zip` — 可安装的画布自动化 Skill。
+- [Windows x64 安装包](https://github.com/Acho001/port-depot-preview/releases/tag/v0.5.2-windows) — `Port-Depot-v0.5.2-Windows-x64-Setup.exe`。
+- [macOS Apple 芯片应用包](https://github.com/Acho001/port-depot-preview/releases/tag/v0.5.2-windows) — `Port-Depot-macOS-2026.10.07.2-clipboard-hotfix.zip`。
+- `PortDepot-Canvas-Agent-Skill-v0.5.2.zip` — 可安装的画布自动化 Skill。
 
 #### 安装
 
@@ -43,7 +45,7 @@ Port Depot 是在传统的文件资源整理库的基础上增加创意构思与
 
 **macOS**：
 
-1. 下载并双击打开 DMG。
+1. 下载 ZIP 并解压，得到 **Port Depot.app**。
 2. 将 **Port Depot** 拖入 **Applications（应用程序）** 文件夹。
 3. 从应用程序文件夹启动 Port Depot。
 
@@ -51,9 +53,9 @@ Port Depot 是在传统的文件资源整理库的基础上增加创意构思与
 
 #### 测试阶段说明
 
-当前公开测试版为 **v0.5.1**。Port Depot 仍在持续优化，后续将继续改进画布交互、文件采集、导入导出、稳定性和整体使用体验。欢迎通过 [GitHub Issues](https://github.com/Acho001/port-depot-preview/issues) 提交问题与建议。
+当前公开测试版为 **v0.5.2**。Port Depot 仍在持续优化，后续将继续改进画布交互、文件采集、导入导出、稳定性和整体使用体验。欢迎通过 [GitHub Issues](https://github.com/Acho001/port-depot-preview/issues) 提交问题与建议。
 
-最新测试发布为 v0.5.1。Windows 内部构建 2026.10.01.1、安装器版本 1.1.1；macOS 内部构建 2026.09.30.1、bundle 版本 1.1.0。
+最新测试发布为 v0.5.2。Windows 与 macOS 内部构建均为 2026.10.07.2，安装器／应用版本均为 1.1.3。
 
 #### 公开发行范围与许可
 
